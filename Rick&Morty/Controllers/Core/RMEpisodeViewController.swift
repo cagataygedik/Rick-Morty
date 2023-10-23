@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RMEpisodeViewController: UIViewController {
+final class RMEpisodeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

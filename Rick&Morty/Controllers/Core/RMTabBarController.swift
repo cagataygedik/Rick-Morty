@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RMTabBarController: UITabBarController {
+final class RMTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,10 +44,7 @@ class RMTabBarController: UITabBarController {
             nav.navigationBar.prefersLargeTitles = true
         }
         
-        setViewControllers(
-            [nav1, nav2, nav3, nav4],
-            animated: true
-        )
+        setViewControllers([nav1, nav2, nav3, nav4], animated: true)
     }
 }
 
