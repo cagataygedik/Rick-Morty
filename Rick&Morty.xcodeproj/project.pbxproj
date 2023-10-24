@@ -12,6 +12,7 @@
 		A210D8942AE13CF500214548 /* RMTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A210D8932AE13CF500214548 /* RMTabBarController.swift */; };
 		A210D8992AE13CF600214548 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A210D8982AE13CF600214548 /* Assets.xcassets */; };
 		A210D89C2AE13CF600214548 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A210D89A2AE13CF600214548 /* LaunchScreen.storyboard */; };
+		A215D7742AE7B36D006A045B /* RMGetAllCharacterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A215D7732AE7B36D006A045B /* RMGetAllCharacterResponse.swift */; };
 		A2D76F212AE67D670078E620 /* RMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D76F202AE67D670078E620 /* RMService.swift */; };
 		A2D76F232AE67D730078E620 /* RMRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D76F222AE67D730078E620 /* RMRequest.swift */; };
 		A2D76F252AE67DDB0078E620 /* RMEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D76F242AE67DDB0078E620 /* RMEndpoint.swift */; };
@@ -36,6 +37,7 @@
 		A210D8982AE13CF600214548 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A210D89B2AE13CF600214548 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A210D89D2AE13CF600214548 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A215D7732AE7B36D006A045B /* RMGetAllCharacterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMGetAllCharacterResponse.swift; sourceTree = "<group>"; };
 		A2D76F202AE67D670078E620 /* RMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMService.swift; sourceTree = "<group>"; };
 		A2D76F222AE67D730078E620 /* RMRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMRequest.swift; sourceTree = "<group>"; };
 		A2D76F242AE67DDB0078E620 /* RMEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEndpoint.swift; sourceTree = "<group>"; };
@@ -94,6 +96,28 @@
 			path = "Rick&Morty";
 			sourceTree = "<group>";
 		};
+		A215D7712AE7B335006A045B /* DataTypes */ = {
+			isa = PBXGroup;
+			children = (
+				A2F4F3672AE2AE0700F142B6 /* RMEpisode.swift */,
+				A2F4F3692AE2AE0F00F142B6 /* RMCharacter.swift */,
+				A2F4F36B2AE2AE1B00F142B6 /* RMLocation.swift */,
+				A2D76F262AE68E410078E620 /* RMOrigin.swift */,
+				A2D76F282AE68E580078E620 /* RMSingleLocation.swift */,
+				A2D76F2A2AE68E780078E620 /* RMCharacterGender.swift */,
+				A2D76F2C2AE68FDD0078E620 /* RMCharacterStatus.swift */,
+			);
+			path = DataTypes;
+			sourceTree = "<group>";
+		};
+		A215D7722AE7B347006A045B /* APIResponseTypes */ = {
+			isa = PBXGroup;
+			children = (
+				A215D7732AE7B36D006A045B /* RMGetAllCharacterResponse.swift */,
+			);
+			path = APIResponseTypes;
+			sourceTree = "<group>";
+		};
 		A2F4F35F2AE2AD7200F142B6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,13 +129,8 @@
 		A2F4F3602AE2AD7700F142B6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A2F4F3672AE2AE0700F142B6 /* RMEpisode.swift */,
-				A2F4F3692AE2AE0F00F142B6 /* RMCharacter.swift */,
-				A2F4F36B2AE2AE1B00F142B6 /* RMLocation.swift */,
-				A2D76F262AE68E410078E620 /* RMOrigin.swift */,
-				A2D76F282AE68E580078E620 /* RMSingleLocation.swift */,
-				A2D76F2A2AE68E780078E620 /* RMCharacterGender.swift */,
-				A2D76F2C2AE68FDD0078E620 /* RMCharacterStatus.swift */,
+				A215D7722AE7B347006A045B /* APIResponseTypes */,
+				A215D7712AE7B335006A045B /* DataTypes */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -240,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A215D7742AE7B36D006A045B /* RMGetAllCharacterResponse.swift in Sources */,
 				A2D76F272AE68E410078E620 /* RMOrigin.swift in Sources */,
 				A2D76F292AE68E580078E620 /* RMSingleLocation.swift in Sources */,
 				A2F4F3712AE2AEE200F142B6 /* RMLocationViewController.swift in Sources */,
