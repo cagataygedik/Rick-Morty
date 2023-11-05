@@ -9,7 +9,9 @@ import UIKit
 
 final class RMCharacterDetailView: UIView {
     
-    private var collectionView: UICollectionView?
+    public var collectionView: UICollectionView?
+    
+    private let viewModel: RMCharacterDetailViewViewModel
     
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
@@ -18,8 +20,8 @@ final class RMCharacterDetailView: UIView {
         return spinner
     }()
     
-    
-    override init(frame: CGRect) {
+    init(frame: CGRect, viewModel: RMCharacterDetailViewViewModel) {
+        self.viewModel = viewModel
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .systemRed
@@ -51,21 +53,22 @@ final class RMCharacterDetailView: UIView {
             return self.createSection(for: sectionIndex)
         }
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(UICollectionView.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }
     
     private func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let sectionTypes = viewModel.sections
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return section
+        switch sectionTypes[sectionIndex] {
+        case .photo:
+            return viewModel.createPhotoSection()
+        case .information:
+            return viewModel.createInformationSection()
+        case .episodes:
+            return viewModel.createEpisodesSection()
+        }
     }
     
     required init?(coder: NSCoder) {
