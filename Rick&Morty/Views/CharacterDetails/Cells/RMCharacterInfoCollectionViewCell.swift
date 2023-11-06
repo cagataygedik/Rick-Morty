@@ -8,5 +8,25 @@
 import UIKit
 
 class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
+    static let cellIdentifier = "RMCharacterInfoCollectionViewCell"
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    private func setupConstraints() {
+        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
+    public func configure(with viewModel: RMCharacterInfoCollectionViewCellViewModel) {
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
