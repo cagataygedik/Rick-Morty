@@ -15,7 +15,6 @@ class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .light)
-        label.text = "Dummy"
         return label
     }()
     
@@ -24,7 +23,6 @@ class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .medium)
-        label.text = "Dummy"
         return label
     }()
     
@@ -32,7 +30,6 @@ class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleAspectFit
-        icon.image = UIImage(systemName: "globe.americas")
         return icon
     }()
     
@@ -81,10 +78,16 @@ class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         valueLabel.text = nil
         titleLabel.text = nil
         iconImageView.image = nil
+        iconImageView.tintColor = .label
+        titleLabel.textColor = .label
     }
     
     public func configure(with viewModel: RMCharacterInfoCollectionViewCellViewModel) {
-        
+        titleLabel.text = viewModel.title
+        valueLabel.text = viewModel.displayValue
+        iconImageView.image = viewModel.iconImage
+        iconImageView.tintColor = viewModel.tintColor
+        titleLabel.textColor = viewModel.tintColor
     }
     
     private func addSubviews() {
