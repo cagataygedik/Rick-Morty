@@ -39,7 +39,7 @@ final class RMCharacterDetailViewViewModel {
                                       .init(type: .created, value: character.created),
                                       .init(type: .episodeCount, value: "\(character.episode.count)"),
             ]),
-            .episodes(viewModels: character.episode.compactMap({ return RMCharacterEpisodeCollectionViewCellViewModel(episodeDateUrl: URL(string: $0)) }))
+            .episodes(viewModels: character.episode.compactMap({ return RMCharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string: $0)) }))
         ]
     }
     
