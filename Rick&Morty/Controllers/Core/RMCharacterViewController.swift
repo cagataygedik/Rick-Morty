@@ -15,7 +15,16 @@ final class RMCharacterViewController: UIViewController, RMCharacterListViewDele
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         title = "Character"
+        addSearchButton()
         setupView()
+    }
+    
+    private func addSearchButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(didTapSearchButton))
+    }
+    
+    @objc private func didTapSearchButton() {
+        
     }
     
     private func setupView() {
