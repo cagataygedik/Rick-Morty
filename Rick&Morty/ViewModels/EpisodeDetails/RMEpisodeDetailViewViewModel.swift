@@ -7,25 +7,64 @@
 
 import Foundation
 
+protocol RMEpisodeDetailViewViewModelDelegate: AnyObject {
+    func didFetchEpisodeDetails()
+}
+
 final class RMEpisodeDetailViewViewModel {
     private let endpointUrl: URL?
+    private var dataTuple: (episode: RMEpisode, characters: [RMCharacter])? {
+        didSet {
+            delegate?.didFetchEpisodeDetails()
+        }
+    }
+    
+    public weak var delegate: RMEpisodeDetailViewViewModelDelegate?
     
     init(endpointUrl: URL?) {
         self.endpointUrl = endpointUrl
+        
     }
     
-    private func fetchEpisodeData() {
+    public func fetchEpisodeData() {
         guard let url = endpointUrl, let request = RMRequest(url: url) else {
             return
         }
         
-        RMService.shared.execute(request, expecting: RMEpisode.self) { result in
+        RMService.shared.execute(request, expecting: RMEpisode.self) { [weak self] result in
             switch result {
-            case .success(let success):
-                print(String(describing: success))
+            case .success(let model):
+                self?.fetchRelatedEpisodes(episode: model)
             case .failure(let failure):
                 break
             }
+        }
+    }
+    
+    private func fetchRelatedEpisodes(episode: RMEpisode) {
+        let requests: [RMRequest] = episode.characters.compactMap({
+            return URL(string: $0)
+        }).compactMap({return RMRequest(url: $0)})
+        
+        let group = DispatchGroup()
+        var character: [RMCharacter] = []
+        for request in requests {
+            group.enter()
+            RMService.shared.execute(request, expecting: RMCharacter.self) { result in
+                defer {
+                    group.leave()
+                }
+                switch result {
+                case .success(let model):
+                    character.append(model)
+                case .failure(let failure):
+                    break
+                }
+            }
+        }
+        
+        group.notify(queue: .main) {
+            self.dataTuple = (episode: episode, characters: character)
         }
     }
 }
