@@ -142,6 +142,14 @@
 			path = "Rick&Morty";
 			sourceTree = "<group>";
 		};
+		A2130ABE2B03F63B00A334BC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				A2E7E8652B023F5200A04EB1 /* RMSearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		A215D7712AE7B335006A045B /* DataTypes */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,9 +215,9 @@
 		A2AB87352AEFA6580063EEDA /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				A2130ABE2B03F63B00A334BC /* Search */,
 				A2AB87362AEFA6730063EEDA /* RMCharacterDetailViewController.swift */,
 				A27840E62AFCE834001A4FF1 /* RMEpisodeDetailViewController.swift */,
-				A2E7E8652B023F5200A04EB1 /* RMSearchViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
