@@ -27,7 +27,6 @@ final class RMEpisodeDetailViewController: UIViewController ,RMEpisodeDetailView
         title = "Episode"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShareButton))
         addConstraints()
-        
         viewModel.delegate = self
         viewModel.fetchEpisodeData()
     }
