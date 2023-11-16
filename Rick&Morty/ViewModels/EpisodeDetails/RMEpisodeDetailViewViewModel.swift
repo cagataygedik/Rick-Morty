@@ -41,6 +41,9 @@ final class RMEpisodeDetailViewViewModel {
         let characters = dataTuple.characters
         
         var createdString = episode.created
+        if let date = RMCharacterInfoCollectionViewCellViewModel.dateFormatter.date(from: episode.created) {
+            createdString = RMCharacterInfoCollectionViewCellViewModel.shortDateFormatter.string(from: date)
+        }
         
         cellViewModels = [
             .information(viewModel: [
