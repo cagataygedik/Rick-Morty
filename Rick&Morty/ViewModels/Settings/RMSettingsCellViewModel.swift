@@ -7,10 +7,16 @@
 
 import UIKit
 
-struct RMSettingsCellViewModel {
-    public let type: RMSettingsOption
+struct RMSettingsCellViewModel: Identifiable {
+    let id = UUID()
     
-    init(type: RMSettingsOption) { self.type = type }
+    public let type: RMSettingsOption
+    public let onTapHandler: (RMSettingsOption) -> Void
+    
+    init(type: RMSettingsOption, onTapHandler: @escaping (RMSettingsOption) -> Void) {
+        self.type = type
+        self.onTapHandler = onTapHandler
+    }
     
     public var image: UIImage? { return type.iconImage }
     

@@ -1,0 +1,18 @@
+//
+//  RMSettingsView.swift
+//  Rick&Morty
+//
+//  Created by Celil Çağatay Gedik on 21.11.2023.
+//
+
+import SwiftUI
+
+struct RMSettingsView: View {
+    var body: some View {
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    }
+}
+
+#Preview {
+    RMSettingsView()
+}
