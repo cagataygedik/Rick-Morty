@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RMLocationViewController: UIViewController, RMLocationViewViewModelDelegate {
+final class RMLocationViewController: UIViewController, RMLocationViewViewModelDelegate, RMLocationViewDelegate {
     
     private let primaryView = RMLocationView()
     
@@ -16,6 +16,7 @@ final class RMLocationViewController: UIViewController, RMLocationViewViewModelD
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        primaryView.delegate = self
         title = "Location"
         addSearchButton()
         setupView()
@@ -39,6 +40,12 @@ final class RMLocationViewController: UIViewController, RMLocationViewViewModelD
             primaryView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             primaryView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    
+    func rmLocationView(_ locationView: RMLocationView, didSelect location: RMLocation) {
+        let detailViewController = RMLocationDetailViewController(location: location)
+        detailViewController.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
     
     func didFetchInitialLocations() {
