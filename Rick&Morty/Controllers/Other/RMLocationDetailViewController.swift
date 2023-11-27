@@ -7,15 +7,6 @@
 
 import UIKit
 
-//
-//  RMLocationDetailViewController.swift
-//  RickAndMorty
-//
-//  Created by Afraz Siddiqui on 12/28/22.
-//
-
-import UIKit
-
 final class RMLocationDetailViewController: UIViewController, RMLocationDetailViewViewModelDelegate, RMLocationDetailViewDelegate {
 
     private let viewModel: RMLocationDetailViewViewModel
