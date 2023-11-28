@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+final class RMSearchViewViewModel {
+    
+    let config: RMSearchViewController
+    
+    init(config: RMSearchViewController) {
+        self.config = config
+    }
+}
