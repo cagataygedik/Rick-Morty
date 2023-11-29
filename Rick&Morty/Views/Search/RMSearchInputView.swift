@@ -7,7 +7,13 @@
 
 import UIKit
 
-class RMSearchInputView: UIView {
+protocol RMSearchInputViewDelegate: AnyObject {
+    func rmSearchInputView(_ inputView: RMSearchInputView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption)
+}
+
+final class RMSearchInputView: UIView {
+    
+    weak var delegate: RMSearchInputViewDelegate?
     
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -75,6 +81,7 @@ class RMSearchInputView: UIView {
         }
         let tag = sender.tag
         let selected = options[tag]
+        delegate?.rmSearchInputView(self, didSelectOption: selected)
     }
     
     private func createOptionSelectionViews(options: [RMSearchInputViewViewModel.DynamicOption]) {

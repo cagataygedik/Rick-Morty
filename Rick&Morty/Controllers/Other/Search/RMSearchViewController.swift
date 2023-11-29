@@ -49,6 +49,7 @@ final class RMSearchViewController: UIViewController {
         title = viewModel.config.type.title
         addConstraints()
         addSearchButton()
+        searchView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,5 +71,10 @@ final class RMSearchViewController: UIViewController {
             searchView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             searchView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+extension RMSearchViewController: RMSearchViewDelegate {
+    func rmSearchView(_ searchView: RMSearchView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption) {
     }
 }
