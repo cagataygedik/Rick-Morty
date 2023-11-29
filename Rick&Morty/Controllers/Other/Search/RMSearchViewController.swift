@@ -51,6 +51,10 @@ final class RMSearchViewController: UIViewController {
         addSearchButton()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        searchView.presentKeyboard()
+    }
+    
     private func addSearchButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(didTapExecuteSearch))
     }

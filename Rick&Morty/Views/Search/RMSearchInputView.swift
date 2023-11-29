@@ -59,5 +59,10 @@ class RMSearchInputView: UIView {
     
     public func configure(with viewModel: RMSearchInputViewViewModel) {
         searchBar.placeholder = viewModel.searchPlaceholderText
+        self.viewModel = viewModel
+    }
+    
+    public func presentKeyboard() {
+        searchBar.becomeFirstResponder()
     }
 }
