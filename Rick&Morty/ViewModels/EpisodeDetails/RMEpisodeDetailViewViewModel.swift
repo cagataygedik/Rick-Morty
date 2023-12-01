@@ -73,7 +73,7 @@ final class RMEpisodeDetailViewViewModel {
             switch result {
             case .success(let model):
                 self?.fetchRelatedEpisodes(episode: model)
-            case .failure(let failure):
+            case .failure(_):
                 break
             }
         }
@@ -95,7 +95,7 @@ final class RMEpisodeDetailViewViewModel {
                 switch result {
                 case .success(let model):
                     character.append(model)
-                case .failure(let failure):
+                case .failure(_):
                     break
                 }
             }
