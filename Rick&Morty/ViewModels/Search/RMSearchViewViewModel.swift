@@ -14,7 +14,7 @@ final class RMSearchViewViewModel {
     private var optionMapUpdateBlock: (((RMSearchInputViewViewModel.DynamicOption, String)) -> Void)?
     private var searchText = ""
     private var searchResultHandler: (() -> Void)?
-        
+    
     init(config: RMSearchViewController.Config) {
         self.config = config
     }
@@ -35,16 +35,39 @@ final class RMSearchViewViewModel {
         
         //create request
         let request = RMRequest(endpoint: config.type.endpoint, queryParameters: queryParams)
-        print(request.url?.absoluteString) //test
         
-        //execute request
-        RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { result in
+        switch config.type.endpoint {
+        case .character:
+            makeSearchAPICall(RMGetAllCharactersResponse.self, request: request)
+        case .location:
+            makeSearchAPICall(RMGetAllLocationsResponse.self, request: request)
+        case .episode:
+            makeSearchAPICall(RMGetAllEpisodesResponse.self, request: request)
+        }
+    }
+    
+    private func makeSearchAPICall<T: Codable>(_ type: T.Type, request: RMRequest) {
+        RMService.shared.execute(request, expecting: type) { [weak self] result in
             switch result {
             case .success(let model):
-                print("\(model.results.count)")
+                self?.processSearchResults(model: model)
             case .failure(_):
                 break
             }
+        }
+    }
+    
+    private func processSearchResults(model: Codable) {
+        if let characterResults = model as? RMGetAllCharactersResponse {
+            print("results: \(characterResults.results)")
+        }
+        
+        if let episodesResults = model as? RMGetAllEpisodesResponse {
+            print("results: \(episodesResults.results)")
+        }
+        
+        if let locationResults = model as? RMGetAllLocationsResponse {
+            print("results: \(locationResults.results)")
         }
     }
     
@@ -58,9 +81,7 @@ final class RMSearchViewViewModel {
         optionMapUpdateBlock?(tuple)
     }
     
-    public func registerOptionChangeBlock(
-        _ block: @escaping ((RMSearchInputViewViewModel.DynamicOption, String)) -> Void
-    ) {
+    public func registerOptionChangeBlock(_ block: @escaping ((RMSearchInputViewViewModel.DynamicOption, String)) -> Void) {
         self.optionMapUpdateBlock = block
     }
 }
