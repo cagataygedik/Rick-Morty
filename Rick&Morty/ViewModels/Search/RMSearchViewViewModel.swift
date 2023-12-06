@@ -13,13 +13,13 @@ final class RMSearchViewViewModel {
     private var optionMap: [RMSearchInputViewViewModel.DynamicOption: String] = [:]
     private var optionMapUpdateBlock: (((RMSearchInputViewViewModel.DynamicOption, String)) -> Void)?
     private var searchText = ""
-    private var searchResultHandler: (() -> Void)?
+    private var searchResultHandler: ((RMSearchResultsViewModel) -> Void)?
     
     init(config: RMSearchViewController.Config) {
         self.config = config
     }
     
-    public func registerSearchResultHandler(_ block: @escaping () -> Void) {
+    public func registerSearchResultHandler(_ block: @escaping (RMSearchResultsViewModel) -> Void) {
         self.searchResultHandler = block
     }
     
@@ -56,16 +56,30 @@ final class RMSearchViewViewModel {
     }
     
     private func processSearchResults(model: Codable) {
+        var resultsViewModel: RMSearchResultsViewModel?
+        
         if let characterResults = model as? RMGetAllCharactersResponse {
-            print("results: \(characterResults.results)")
+            resultsViewModel = .characters(characterResults.results.compactMap({
+                return RMCharacterCollectionViewCellViewModel(characterName: $0.name, characterStatus: $0.status, characterImageUrl: URL(string: $0.image))
+            }))
         }
         
-        if let episodesResults = model as? RMGetAllEpisodesResponse {
-            print("results: \(episodesResults.results)")
+        else if let episodesResults = model as? RMGetAllEpisodesResponse {
+            resultsViewModel = .episodes(episodesResults.results.compactMap({
+                return RMCharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string: $0.url))
+            }))
         }
         
-        if let locationResults = model as? RMGetAllLocationsResponse {
-            print("results: \(locationResults.results)")
+        else if let locationResults = model as? RMGetAllLocationsResponse {
+            resultsViewModel = .locations(locationResults.results.compactMap({
+                return RMLocationTableViewCellViewModel(location: $0)
+            }))
+        }
+        
+        if let results = resultsViewModel {
+            self.searchResultHandler?(results)
+        } else {
+            
         }
     }
     
