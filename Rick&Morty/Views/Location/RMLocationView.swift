@@ -15,6 +15,8 @@ final class RMLocationView: UIView {
     
     public weak var delegate: RMLocationViewDelegate?
     
+    private var isLoadingMoreLocations = false
+    
     private var viewModel: RMLocationViewViewModel? {
         didSet {
             spinner.stopAnimating()
@@ -22,6 +24,13 @@ final class RMLocationView: UIView {
             tableView.reloadData()
             UIView.animate(withDuration: 0.3) {
                 self.tableView.alpha = 1
+            }
+            
+            viewModel?.registerDidFinishPaginationBlock { [weak self] in
+                DispatchQueue.main.async {
+                    self?.tableView.tableFooterView = nil
+                    self?.tableView.reloadData()
+                }
             }
         }
     }
@@ -110,5 +119,31 @@ extension RMLocationView: UITableViewDataSource {
         let cellViewModel = cellViewModels[indexPath.row]
         cell.configure(with: cellViewModel)
         return cell
+    }
+}
+
+extension RMLocationView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let viewModel = viewModel,
+              !viewModel.cellViewModels.isEmpty,
+              viewModel.shouldShowLoadMoreIndicator,
+              !viewModel.isLoadingMoreLocations else { return }
+        
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
+            let offset = scrollView.contentOffset.y
+            let totalContentHeight = scrollView.contentSize.height
+            let totalScrollViewFixedHeight = scrollView.frame.size.height
+            
+            if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120) {
+                self?.showLoadingIndicator()
+                viewModel.fetchAdditionalLocations()
+            }
+            t.invalidate()
+        }
+    }
+    
+    private func showLoadingIndicator() {
+        let footer = RMTableLoadingFooterView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 100))
+        tableView.tableFooterView = footer
     }
 }
